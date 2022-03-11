@@ -1,7 +1,28 @@
 import React from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 
-
+const UselessTextInput = () => {
+    const [text, onChangeText] = React.useState("Useless Text");
+    const [number, onChangeNumber] = React.useState(null);
+  
+    return (
+      <SafeAreaView>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          value={phoneNumber}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeNumber}
+          value={oneTimePassword}
+          placeholder="useless placeholder"
+          keyboardType="numeric"
+        />
+        <Button title="Log In" onPress={()=>props.setUserLoggedIn(true)}></Button>
+      </SafeAreaView>
+    );
+  };
 
 export default function Login(props){
     return(
@@ -10,6 +31,29 @@ export default function Login(props){
             <Button title="Log In" onPress={()=>props.setUserLoggedIn(true)}></Button>
         </View>
     );
+}
+
+const sendSMS = (phoneNumber) => {
+    fetch('https://dev.stedi.me/twofactorlogin/'+phoneNumber, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+  });
+}
+
+const verifyOTP = (phoneNumber, oneTimePassword) => {fetch('https://dev.stedi.me/twofactorlogin/', {
+method: 'POST',
+headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        phoneNumber,
+        oneTimePassword,
+      })
+});
 }
 
 const styles = StyleSheet.create({
