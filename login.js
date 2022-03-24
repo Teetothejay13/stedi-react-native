@@ -14,12 +14,22 @@ const UselessTextInput = () => {
         />
         <TextInput
           style={styles.input}
-          onChangeText={onChangeNumber}
-          value={oneTimePassword}
-          placeholder="useless placeholder"
+          onChangeText={setPhoneNumber}
+          value={phoneNumber}
+          placeholder="Phone Number"
           keyboardType="numeric"
         />
-        <Button title="Log In" onPress={()=>props.setUserLoggedIn(true)}></Button>
+        <Button title="Send SMS" onPress={
+
+          fetch("https://dev.stedi.me"+phoneNumber,{
+            method: 'POST',
+            headers:{//metadata
+            Accept: "application/text",
+          "Content-Type":"application/text"
+        }
+        })
+        }>
+        </Button>
       </SafeAreaView>
     );
   };
